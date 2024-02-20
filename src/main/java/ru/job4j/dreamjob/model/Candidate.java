@@ -7,7 +7,10 @@ public class Candidate {
     private int id;
     private String title;
     private String description;
-    private LocalDateTime creationDate;
+    private LocalDateTime creationDate = LocalDateTime.now();
+
+    public Candidate() {
+    }
 
     public Candidate(int id, String title, String description, LocalDateTime creationDate) {
         this.id = id;
@@ -59,5 +62,9 @@ public class Candidate {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }
