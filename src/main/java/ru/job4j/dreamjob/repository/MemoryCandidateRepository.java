@@ -18,12 +18,12 @@ public class MemoryCandidateRepository implements CandidateRepository {
     private final LocalDateTime now = LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
     public MemoryCandidateRepository() {
-        save(new Candidate(0, "Ivanov Ivan", "HelloWorld", now, 1));
-        save(new Candidate(0, "Petrov Petr", "HelloWorld", now, 2));
-        save(new Candidate(0, "Nikolaev Nilolay", "HelloWorld", now, 3));
-        save(new Candidate(0, "Olgina Olga", "HelloWorld", now, 1));
-        save(new Candidate(0, "Dmitriev Dmitriy", "HelloWorld", now, 2));
-        save(new Candidate(0, "Nikitin Nikita", "HelloWorld", now, 3));
+        save(new Candidate(0, "Ivanov Ivan", "HelloWorld", now, 1, 0));
+        save(new Candidate(0, "Petrov Petr", "HelloWorld", now, 2, 0));
+        save(new Candidate(0, "Nikolaev Nilolay", "HelloWorld", now, 3, 0));
+        save(new Candidate(0, "Olgina Olga", "HelloWorld", now, 1, 0));
+        save(new Candidate(0, "Dmitriev Dmitriy", "HelloWorld", now, 2, 0));
+        save(new Candidate(0, "Nikitin Nikita", "HelloWorld", now, 3, 0));
     }
 
     public static MemoryCandidateRepository getInstance() {
@@ -46,7 +46,7 @@ public class MemoryCandidateRepository implements CandidateRepository {
     public boolean update(Candidate candidate) {
         return candidates.computeIfPresent(candidate.getId(),
                 (id, oldVacancy) -> new Candidate(oldVacancy.getId(), candidate.getTitle(),
-                        candidate.getDescription(), candidate.getCreationDate(), candidate.getCityId())) != null;
+                        candidate.getDescription(), candidate.getCreationDate(), candidate.getCityId(), candidate.getFileId())) != null;
     }
 
     @Override
