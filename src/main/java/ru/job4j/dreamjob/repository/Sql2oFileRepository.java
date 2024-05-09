@@ -25,7 +25,6 @@ public class Sql2oFileRepository implements FileRepository {
             file.setId(generatedId);
             return file;
         }
-
     }
 
     @Override
