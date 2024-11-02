@@ -56,8 +56,8 @@ public class Candidate {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Vacancy vacancy = (Vacancy) o;
-        return getId() == vacancy.getId() && Objects.equals(getTitle(), vacancy.getTitle());
+        Candidate candidate = (Candidate) o;
+        return getId() == candidate.getId() && Objects.equals(getTitle(), candidate.getTitle());
     }
 
     @Override

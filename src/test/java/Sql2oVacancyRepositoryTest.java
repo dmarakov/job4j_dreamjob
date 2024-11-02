@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -43,14 +42,13 @@ public class Sql2oVacancyRepositoryTest {
         sql2oVacancyRepository = new Sql2oVacancyRepository(sql2o);
         sql2oFileRepository = new Sql2oFileRepository(sql2o);
 
-        file = new File("test", "test1234");
+        file = new File("test", "test");
         sql2oFileRepository.save(file);
     }
 
     @AfterAll
     public static void deleteFile() {
         sql2oFileRepository.deleteById(file.getId());
-        System.out.println(sql2oFileRepository);
     }
 
     @AfterEach
@@ -99,7 +97,7 @@ public class Sql2oVacancyRepositoryTest {
     public void whenDeleteByInvalidIdThenGetFalse() {
         assertThat(sql2oVacancyRepository.deleteById(0)).isFalse();
     }
-/*
+
     @Test
     public void whenUpdateThenGetUpdated() {
         var creationDate = now().truncatedTo(ChronoUnit.MINUTES);
@@ -111,9 +109,8 @@ public class Sql2oVacancyRepositoryTest {
         var isUpdated = sql2oVacancyRepository.update(updatedVacancy);
         var savedVacancy = sql2oVacancyRepository.findById(updatedVacancy.getId()).get();
         assertThat(isUpdated).isTrue();
-        assertThat(savedVacancy).usingRecursiveComparison().isEqualTo(updatedVacancy);
+        assertThat(savedVacancy).isEqualTo(updatedVacancy);
     }
-*/
 
     @Test
     public void whenUpdateUnExistingVacancyThenGetFalse() {
