@@ -33,8 +33,11 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("password", user.getPassword());
             int generatedId = query.executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
+            return Optional.of(user);
+        }  catch (Sql2oException e) {
+            LOG.error("Невозможно создать пользователя. Пользователь с указанным email уже существует", e);
+            return Optional.empty();
         }
-        return Optional.of(user);
     }
 
     @Override
@@ -45,9 +48,6 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("password", password);
             var user = query.executeAndFetchFirst(User.class);
             return Optional.ofNullable(user);
-        } catch (Sql2oException e) {
-            LOG.error("Пользователь с указанным email уже существует", e);
-            return Optional.empty();
         }
     }
 }

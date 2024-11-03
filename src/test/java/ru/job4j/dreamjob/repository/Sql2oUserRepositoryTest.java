@@ -5,14 +5,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import org.sql2o.Sql2oException;
 import ru.job4j.dreamjob.configuration.DatasourceConfiguration;
 import ru.job4j.dreamjob.model.User;
 
 import java.util.Properties;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class Sql2oUserRepositoryTest {
 
@@ -51,11 +49,14 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    public void whenSaveUserAlreadyExistThenThrowsException() {
+    public void whenSaveUserAlreadyExistThenNotSaved() {
         var user = sql2oUserRepository.save(new User(1, "petr@mail.ru", "Petr Petrov", "qwerty"));
         assertThat(user).isPresent();
-        assertThrows(Sql2oException.class, () -> {
-            sql2oUserRepository.save(new User(2, "petr@mail.ru", "Petr Petrov", "qwerty"));
-        });
+
+        var user1 = sql2oUserRepository.save(new User(2, "petr@mail.ru", "Petr Petrov", "qwerty"));
+        assertThat(user1).isEmpty();
+
+        var savedUser = sql2oUserRepository.findByEmailAndPassword(user.get().getEmail(), user.get().getPassword());
+        assertThat(savedUser).usingRecursiveComparison().isEqualTo(user);
     }
 }
