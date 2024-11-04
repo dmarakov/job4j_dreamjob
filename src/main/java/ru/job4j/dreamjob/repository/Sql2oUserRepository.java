@@ -36,8 +36,8 @@ public class Sql2oUserRepository implements UserRepository {
             return Optional.of(user);
         }  catch (Sql2oException e) {
             LOG.error("Невозможно создать пользователя. Пользователь с указанным email уже существует", e);
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     @Override
