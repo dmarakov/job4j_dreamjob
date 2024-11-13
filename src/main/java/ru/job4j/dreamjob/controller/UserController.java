@@ -23,24 +23,12 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String getRegisterPage(HttpSession session, Model model) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+    public String getRegisterPage() {
         return "users/register";
     }
 
     @GetMapping("/login")
-    public String getLoginPage(HttpSession session, Model model) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+    public String getLoginPage() {
         return "users/login";
     }
 
@@ -52,11 +40,6 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(Model model, @ModelAttribute User user) {
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         var savedUser = userService.save(user);
         if (savedUser.isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
@@ -67,11 +50,6 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         var userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (userOptional.isEmpty()) {
             model.addAttribute("error", "Почта или пароль введены неверно");
