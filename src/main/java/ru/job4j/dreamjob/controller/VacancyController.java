@@ -7,22 +7,17 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.CityService;
-import ru.job4j.dreamjob.service.FileService;
 import ru.job4j.dreamjob.service.VacancyService;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/vacancies")
 public class VacancyController {
     private final VacancyService vacancyService;
     private final CityService cityService;
-    private final FileService fileService;
 
-    public VacancyController(VacancyService vacancyService, CityService cityService, FileService fileService) {
+    public VacancyController(VacancyService vacancyService, CityService cityService) {
         this.vacancyService = vacancyService;
         this.cityService = cityService;
-        this.fileService = fileService;
     }
 
     @GetMapping

@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.job4j.dreamjob.service.FileService;
 
-import javax.servlet.http.HttpSession;
-
 @RestController
 @RequestMapping("/files")
 public class FileController {

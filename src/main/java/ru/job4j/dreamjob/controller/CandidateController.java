@@ -8,9 +8,6 @@ import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
-import ru.job4j.dreamjob.service.FileService;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/candidates")
@@ -18,16 +15,14 @@ public class CandidateController {
 
     private final CandidateService candidateService;
     private final CityService cityService;
-    private final FileService fileService;
 
-    public CandidateController(CandidateService candidateService, CityService cityService, FileService fileService) {
+    public CandidateController(CandidateService candidateService, CityService cityService) {
         this.candidateService = candidateService;
         this.cityService = cityService;
-        this.fileService = fileService;
     }
 
     @GetMapping
-    public String getAll(Model model, HttpSession session) {
+    public String getAll(Model model) {
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates/list";
     }
